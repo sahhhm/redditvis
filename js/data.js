@@ -13,7 +13,7 @@ function get_comments(aRed) {
       async: false,
       success: function(raw_comments){
         aRed.comments = raw_comments.data.children;
-	    aRed.comments_after = raw_comments.data.after;
+        aRed.comments_after = raw_comments.data.after;
         if (aRed.comments_after) get_more_comments(aRed);
       }
     });
@@ -31,9 +31,9 @@ function get_more_comments(aRed) {
     dataType: "jsonp",
     async: false,
     success: function(r){
-     aRed.comments = aRed.comments.concat(r.data.children);
-     aRed.comments_after = r.data.after;
-     if (aRed.comments_after) get_more_comments(aRed);
+      aRed.comments = aRed.comments.concat(r.data.children);
+      aRed.comments_after = r.data.after;
+      if (aRed.comments_after) get_more_comments(aRed);
     }
   });
 }
@@ -53,7 +53,7 @@ function get_submitted(aRed) {
       async: false,
       success: function(raw_submitted){
         aRed.submitted = raw_submitted.data.children;
-	    aRed.submitted_after = raw_submitted.data.after;
+        aRed.submitted_after = raw_submitted.data.after;
         if (aRed.submitted_after) get_more_submitted(aRed);
       }
     });
@@ -71,9 +71,9 @@ function get_more_submitted(aRed) {
     dataType: "jsonp",
     async: false,
     success: function(r){
-     aRed.submitted = aRed.submitted.concat(r.data.children);
-     aRed.submitted_after = r.data.after;
-     if (aRed.submitted_after) get_more_submitted(aRed);
+      aRed.submitted = aRed.submitted.concat(r.data.children);
+      aRed.submitted_after = r.data.after;
+      if (aRed.submitted_after) get_more_submitted(aRed);
     }
   });
 }

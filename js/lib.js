@@ -4,12 +4,12 @@
  */
 function Redditor()
 {
-    this.username = "";
-    this.comments = new Array();
-	this.comments_after = "";
-	this.submitted = new Array();
-	this.submitted_after = "";
-	this.debug = true;
+  this.username = "";
+  this.comments = new Array();
+  this.comments_after = "";
+  this.submitted = new Array();
+  this.submitted_after = "";
+  this.debug = true;
 }
 
 /**
@@ -18,6 +18,6 @@ function Redditor()
  * @returns - the desired date representation
  */
 function format_date(utc) {
-	var d = new Date(utc * 1000);
-	return d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
+  var d = new Date(utc * 1000);
+  return d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
 }
