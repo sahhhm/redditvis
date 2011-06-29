@@ -54,7 +54,9 @@ function get_submitted(aRed) {
       success: function(raw_submitted){
         aRed.submitted = raw_submitted.data.children;
         aRed.submitted_after = raw_submitted.data.after;
-        if (aRed.submitted_after) get_more_submitted(aRed);
+        if (aRed.submitted_after) {
+          get_more_submitted(aRed);
+        }
       }
     });
   }
