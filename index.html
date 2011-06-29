@@ -1,37 +1,42 @@
 <html>
   <head>
     <title>RedditVis</title>
-    <link type="text/css" rel="stylesheet" href="ex.css?3.2"/>
+    <link type="text/css" rel="stylesheet" href="style/style.css"/>
     <script type="text/javascript" src="js/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript" src="js/lib.js"></script>
 	
-    <style type="text/css">
-      #fig {
-        width: 430px;
-        height: 425px;
-      }
-    </style>
+  <script>
+  $(document).ready(function () {
+    r = new Redditor;
+
+	r.username = "sahhhm";
+	get_comments(r);
+	get_submitted(r);
+  });
+  </script>
+	
   </head>
   
   <body>
-    <div id="center">
 	  <div id="fig">
         <script type="text/javascript+protovis">
-		// Key Comments Data
-        var min_score_comments = pv.min(comments.map(function(d) d.data.ups - d.data.downs));
-        var max_score_comments = pv.max(comments.map(function(d) d.data.ups - d.data.downs));
-        var min_date_comments = pv.min(comments.map(function(d) d.data.created));
-        var max_date_comments = pv.max(comments.map(function(d) d.data.created));
+
+		// Comments Data
+        var min_score_comments = pv.min(r.comments.map(function(d) d.data.ups - d.data.downs));
+        var max_score_comments = pv.max(r.comments.map(function(d) d.data.ups - d.data.downs));
+        var min_date_comments = pv.min(r.comments.map(function(d) d.data.created));
+        var max_date_comments = pv.max(r.comments.map(function(d) d.data.created));
 		
-        // Key Submitted Data
-        var min_score_submitted = pv.min(submitted.map(function(d) d.data.ups - d.data.downs));
-        var max_score_submitted = pv.max(submitted.map(function(d) d.data.ups - d.data.downs));	
-        var min_date_submitted = pv.min(submitted.map(function(d) d.data.created));
-        var max_date_submitted = pv.max(submitted.map(function(d) d.data.created));
+        // Submitted Data
+        var min_score_submitted = pv.min(r.submitted.map(function(d) d.data.ups - d.data.downs));
+        var max_score_submitted = pv.max(r.submitted.map(function(d) d.data.ups - d.data.downs));	
+        var min_date_submitted = pv.min(r.submitted.map(function(d) d.data.created));
+        var max_date_submitted = pv.max(r.submitted.map(function(d) d.data.created));
 
 				
-        // Key Data
+        // Main Data
 		var min_date = Math.min(min_date_comments, min_date_submitted);
         var max_date = Math.max(max_date_comments, max_date_submitted);
 		var min_score = Math.min(min_score_comments, min_score_submitted);
@@ -40,7 +45,7 @@
         /* Sizing and scales. */
         var w = 800,
         h = 400,
-        x = pv.Scale.linear(min_date, max_date).range(0, w),
+        x = pv.Scale.linear(min_date_comments, max_date).range(0, w),
         y = pv.Scale.linear(min_score, max_score).range(0, h);
 
         /* The root panel. */
@@ -70,35 +75,34 @@
 
         /* The comment plot! */
         vis.add(pv.Panel)
-          .data(comments)
+          .data(r.comments)
 		.add(pv.Panel)
 		  .def("active", false)
         .add(pv.Dot)
           .left(function(d) x(d.data.created_utc))
           .bottom(function(d) y(d.data.ups - d.data.downs))
-          .size(function(d) ((d.data.ups - d.data.downs)/max_score_comments) * 100)
-		  .fillStyle(function() this.parent.active() ? "steelblue" : undefined)
-		  .event("mouseover", function() this.parent.active(true))
-		  .event("mouseout", function() this.parent.active(false));
+          .size(function(d) ((d.data.ups - d.data.downs)/max_score_comments)* 100)
+          .fillStyle(function() this.parent.active() ? "steelblue" : undefined)
+          .event("mouseover", function() this.parent.active(true))
+          .event("mouseout", function() this.parent.active(false));
 
 		/* The submitted plot! */
         vis.add(pv.Panel)
-          .data(submitted)
+          .data(r.submitted)
 		.add(pv.Panel)
 		  .def("active", false)
         .add(pv.Dot)
           .left(function(d) x(d.data.created_utc))
           .bottom(function(d) y(d.data.ups - d.data.downs))
-          .shape("square")
+          .shape("triangle")
 		  .size(function(d) ((d.data.ups - d.data.downs)/max_score_submitted) * 100)
-		  .fillStyle(function() this.parent.active() ? "steelblue" : undefined)
-		  .event("mouseover", function() this.parent.active(true))
-		  .event("mouseout", function() this.parent.active(false));
+          .fillStyle(function() this.parent.active() ? "steelblue" : undefined)
+          .event("mouseover", function() this.parent.active(true))
+          .event("mouseout", function() this.parent.active(false));
 
         vis.render();
 
         </script>
-      </div>
     </div>
   </body>
 </html>
