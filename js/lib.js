@@ -57,7 +57,7 @@ function Redditor()
   this.get_max_score = function() { 
     return Math.max(this.get_max_score_comments(), this.get_max_score_submitted());
   };  
-  this.debug = true;
+  this.debug = false;
 }
 
 /**

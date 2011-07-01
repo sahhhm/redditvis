@@ -14,7 +14,10 @@ function get_comments(aRed) {
       success: function(raw_comments){
         aRed.comments = raw_comments.data.children;
         aRed.comments_after = raw_comments.data.after;
-        if (aRed.comments_after) get_more_comments(aRed);
+		vis.render();
+        if (aRed.comments_after) { 
+			setTimeout(function() { get_more_comments(aRed) }, 2000);
+		}
       }
     });
   }
@@ -33,8 +36,11 @@ function get_more_comments(aRed) {
     success: function(r){
       aRed.comments = aRed.comments.concat(r.data.children);
       aRed.comments_after = r.data.after;
-      if (aRed.comments_after) get_more_comments(aRed);
-    }
+	  vis.render();
+        if (aRed.comments_after) { 
+          setTimeout(function() { get_more_comments(aRed) }, 2000);
+		}    
+	}
   });
 }
 
@@ -54,8 +60,9 @@ function get_submitted(aRed) {
       success: function(raw_submitted){
         aRed.submitted = raw_submitted.data.children;
         aRed.submitted_after = raw_submitted.data.after;
+		vis.render();
         if (aRed.submitted_after) {
-          get_more_submitted(aRed);
+          setTimeout(function() { get_more_submitted(aRed) }, 2000);
         }
       }
     });
@@ -75,7 +82,10 @@ function get_more_submitted(aRed) {
     success: function(r){
       aRed.submitted = aRed.submitted.concat(r.data.children);
       aRed.submitted_after = r.data.after;
-      if (aRed.submitted_after) get_more_submitted(aRed);
+	  vis.render();
+      if (aRed.submitted_after) {
+        setTimeout(function() { get_more_submitted(aRed) }, 2000);
+      }
     }
   });
 }
