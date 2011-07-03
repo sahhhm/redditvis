@@ -18,7 +18,8 @@ function redditvis(aRed) {
   .bottom(20)
   .left(20)
   .right(10)
-  .top(5);
+  .top(5)
+  .def("active", false); // vis.active -> currently hovered data element
 
   /* Y-axis and ticks. */
   vis.add(pv.Rule)
@@ -39,29 +40,29 @@ function redditvis(aRed) {
   /* The comment plot */
   vis.add(pv.Panel)
     .data(function() aRed.comments)
-  .add(pv.Panel)
-    .def("active", false)
   .add(pv.Dot)
     .left(function(d) getX()((d.data.created_utc)))
     .bottom(function(d) getY()(d.data.ups - d.data.downs))
+	.shape("circle")
     .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score_comments())* 100)
-    .fillStyle(function() this.parent.active() ? "steelblue" : undefined)
-    .event("mouseover", function() this.parent.active(true))
-    .event("mouseout", function() this.parent.active(false));
+	.strokeStyle(function(d) aRed.get_color_scale(d).alpha(.8))
+	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color_scale(d).alpha(.8) : aRed.get_color_scale(d).alpha(.2))
+    .event("mouseover", function(d) vis.active(d))
+    .event("mouseout", function(d) vis.active(false));
 
   /* The submitted plot */
+  /*
   vis.add(pv.Panel)
     .data(function() aRed.submitted)
-  .add(pv.Panel)
-    .def("active", false)
   .add(pv.Dot)
     .left(function(d) getX()(d.data.created_utc))
     .bottom(function(d) getY()(d.data.ups - d.data.downs))
     .shape("triangle")
     .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score_submitted()) * 100)
-    .fillStyle(function() this.parent.active() ? "steelblue" : undefined)
-    .event("mouseover", function() this.parent.active(true))
-    .event("mouseout", function() this.parent.active(false));
-
+	.strokeStyle(function(d) aRed.get_color_scale(d).alpha(.8))
+	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color_scale(d).alpha(.8) : aRed.get_color_scale(d).alpha(.2))
+    .event("mouseover", function(d) vis.active(d))
+    .event("mouseout", function(d) vis.active(false));
+  */
   //vis.render(); 
 }

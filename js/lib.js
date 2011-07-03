@@ -9,12 +9,13 @@ function Redditor()
   this.comments_after = "";
   this.submitted = new Array();
   this.submitted_after = "";
+  this.subreddits = { min_count : 1, max_count: 1, r : {} }; // subreddits['nyc'] = {num: xxx, color: #xxx}
 
-  this.test = function() {  
-		$.each(this.comments, function(d, val) {
-			alert(val.data.subreddit);
-		});
-		  };
+  
+  this.get_color_scale = function(d) {
+    return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
+	  .range('red', 'yellow', 'green')(this.subreddits.r[d.data.subreddit].count);  
+  }
 
   /* getters for comment data */
   this.get_min_score_comments = function() { 
@@ -57,7 +58,7 @@ function Redditor()
   this.get_max_score = function() { 
     return Math.max(this.get_max_score_comments(), this.get_max_score_submitted());
   };  
-  this.debug = true;
+  this.debug = false;
 }
 
 /**
