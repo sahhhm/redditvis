@@ -37,32 +37,18 @@ function redditvis(aRed) {
   .anchor("bottom").add(pv.Label)
    .text(function(d) format_date(d));
 
-  /* The comment plot */
+  /* The plot */
   vis.add(pv.Panel)
-    .data(function() aRed.comments)
+    .data(function() aRed.data)
   .add(pv.Dot)
     .left(function(d) getX()((d.data.created_utc)))
     .bottom(function(d) getY()(d.data.ups - d.data.downs))
-	.shape("circle")
-    .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score_comments())* 100)
+	.shape(function(d) d.kind == "t1" ? "circle" : "triangle")
+    .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score())* 100)
 	.strokeStyle(function(d) aRed.get_color_scale(d).alpha(.8))
 	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color_scale(d).alpha(.8) : aRed.get_color_scale(d).alpha(.2))
     .event("mouseover", function(d) vis.active(d))
     .event("mouseout", function(d) vis.active(false));
 
-  /* The submitted plot */
-  /*
-  vis.add(pv.Panel)
-    .data(function() aRed.submitted)
-  .add(pv.Dot)
-    .left(function(d) getX()(d.data.created_utc))
-    .bottom(function(d) getY()(d.data.ups - d.data.downs))
-    .shape("triangle")
-    .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score_submitted()) * 100)
-	.strokeStyle(function(d) aRed.get_color_scale(d).alpha(.8))
-	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color_scale(d).alpha(.8) : aRed.get_color_scale(d).alpha(.2))
-    .event("mouseover", function(d) vis.active(d))
-    .event("mouseout", function(d) vis.active(false));
-  */
   //vis.render(); 
 }
