@@ -45,8 +45,8 @@ function redditvis(aRed) {
     .bottom(function(d) getY()(d.data.ups - d.data.downs))
 	.shape(function(d) d.kind == "t1" ? "circle" : "triangle")
     .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score())* 100)
-	.strokeStyle(function(d) aRed.get_color_scale(d).alpha(.8))
-	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color_scale(d).alpha(.8) : aRed.get_color_scale(d).alpha(.2))
+	.strokeStyle(function(d) aRed.get_color(d).alpha(.8))
+	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2))
     .event("mouseover", function(d) vis.active(d))
     .event("mouseout", function(d) vis.active(false));
 

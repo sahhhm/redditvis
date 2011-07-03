@@ -4,17 +4,15 @@
  */
 function Redditor()
 {
-  this.debug = true;
+  this.debug = false;
   this.username = "";
   this.data = new Array();
-  this.comments = new Array();
   this.comments_after = "";
-  this.submitted = new Array();
   this.submitted_after = "";
   this.subreddits = { min_count : 1, max_count: 1, r : {} }; // subreddits['nyc'] = {num: xxx, color: #xxx}
 
   
-  this.get_color_scale = function(d) {
+  this.get_color = function(d) {
     return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
 	  .range('red', 'yellow', 'green')(this.subreddits.r[d.data.subreddit].count);  
   }
