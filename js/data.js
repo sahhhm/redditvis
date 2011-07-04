@@ -47,8 +47,6 @@ function get_more_comments(aRed) {
     dataType: "jsonp",
     async: false,
     success: function(raw_comments){
-      //aRed.comments = aRed.comments.concat(r.data.children);
-      //aRed.comments_after = r.data.after;
       update_vis_data(aRed, raw_comments);
 	  vis.render();
         if (aRed.comments_after) { 
@@ -69,8 +67,6 @@ function get_more_submitted(aRed) {
     dataType: "jsonp",
     async: false,
     success: function(r){
-      //aRed.submitted = aRed.submitted.concat(r.data.children);
-      //aRed.submitted_after = r.data.after;
 	  update_vis_data(aRed, r);
 	  vis.render();
       if (aRed.submitted_after) {
@@ -81,10 +77,13 @@ function get_more_submitted(aRed) {
 }
 
 function update_vis_data(aRed, raw_data) {
+  // populate data and raw data
   if (!aRed.data) {
 	aRed.data = raw_data.data.children;
+	aRed.raw_data = raw_data.data.children;
   } else {
 	aRed.data = aRed.data.concat(raw_data.data.children);
+	aRed.raw_data = aRed.raw_data.concat(raw_data.data.children);
   }
   raw_data.data.children[0].kind == "t1" ? 
     aRed.comments_after = raw_data.data.after : 

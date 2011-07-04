@@ -23,32 +23,32 @@ function redditvis(aRed) {
 
   /* Y-axis and ticks. */
   vis.add(pv.Rule)
-  .data(function() getY().ticks())
-  .bottom(function(d) getY()(d))
-  .strokeStyle(function(d) d ? "#eee" : "#000")
+  .data(function() { return getY().ticks(); })
+  .bottom(function(d) { return getY()(d); })
+  .strokeStyle(function(d) {return d ? "#eee" : "#000"; })
   .anchor("left").add(pv.Label)
-  .text(function(d) d);
+  .text(function(d) { return d; });
 
   /* X-axis and ticks. */
   vis.add(pv.Rule)
-   .data(function() getX().ticks())
-   .left(function(d) getX()(d))
-   .strokeStyle(function(d) d ? "#eee" : "#000")
+   .data(function() { return getX().ticks(); })
+   .left(function(d) { return getX()(d); })
+   .strokeStyle(function(d) { return d ? "#eee" : "#000"; })
   .anchor("bottom").add(pv.Label)
-   .text(function(d) format_date(d));
+   .text(function(d) { return format_date(d); });
 
   /* The plot */
   vis.add(pv.Panel)
-    .data(function() aRed.data)
+    .data(function() { return aRed.data; })
   .add(pv.Dot)
-    .left(function(d) getX()((d.data.created_utc)))
-    .bottom(function(d) getY()(d.data.ups - d.data.downs))
-	.shape(function(d) d.kind == "t1" ? "circle" : "triangle")
-    .size(function(d) ((d.data.ups - d.data.downs)/aRed.get_max_score())* 100)
-	.strokeStyle(function(d) aRed.get_color(d).alpha(.8))
-	.fillStyle(function(d) vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2))
-    .event("mouseover", function(d) vis.active(d))
-    .event("mouseout", function(d) vis.active(false));
+    .left(function(d) { return getX()((d.data.created_utc)); })
+    .bottom(function(d) { return getY()(d.data.ups - d.data.downs); })
+	.shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
+    .size(function(d) { return ((d.data.ups - d.data.downs)/aRed.get_max_score())* 100 })
+	.strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
+	.fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
+    .event("mouseover", function(d) { return vis.active(d); })
+    .event("mouseout", function(d) { return vis.active(false); });
 
   //vis.render(); 
 }
