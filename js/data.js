@@ -6,7 +6,10 @@ function get_data(aRed) {
 	update_vis_data(aRed, raw_submitted);	
     vis.render();	
   } else {
-	// Get Comment Data
+    // reset everything
+	aRed.clear();
+	
+    // Get Comment Data
     $.ajax({
       url: "http://www.reddit.com/user/" + aRed.username + "/comments/.json?jsonp=?",
       dataType: "json",

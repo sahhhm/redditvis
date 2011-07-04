@@ -13,13 +13,21 @@
     <script>
 	    var vis;
         var my_redditor = new Redditor;
-	    my_redditor.username = "sahhhm";
 		$(function() {
-		  $("#buttongroup" ).buttonset();
+		  $("#buttongroup").hide();
+          $("#buttongroup").buttonset();
 		  $("#comment_button, #submitted_button").click(function() {	  
 		    my_redditor.filters.comments = $("#comment_button").is(":checked");
 			my_redditor.filters.submitted = $("#submitted_button").is(":checked");
 			my_redditor.update();
+		  });
+		  
+          $("#username_submit").click(function() {
+			  my_redditor.username = $("#username_input").val();
+              get_data(my_redditor);	
+              
+			  // show the filters
+		      $("#buttongroup").fadeIn(2000);			  
 		  });		  
 	    });
     </script>
@@ -28,15 +36,14 @@
   <body>
     <!-- User Selector -->
     <div id="user">
-	  <input id="username_input" type="text"/> 
+	  <input id="username_input" type="text" class="user"/> 
+	  <button id="username_submit" class="user">submit</button>
 	</div>
   
     <!-- Visualization -->
     <div id="fig">
 	  <script>
-    	redditvis(my_redditor);
-		vis.render();
-	    get_data(my_redditor);	
+    	redditvis(my_redditor);	
 	  </script>
 	</div>
 	

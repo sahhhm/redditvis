@@ -4,7 +4,7 @@
  */
 function Redditor()
 {
-  this.debug = true;
+  this.debug = false;
   this.username = "";
   this.raw_data = new Array();
   this.data = new Array();
@@ -31,6 +31,14 @@ function Redditor()
   this.get_max_score = function() { 
     return pv.max(this.data.map(function(d) { return d.data.ups - d.data.downs; }));
   };
+
+  this.clear = function() {
+    this.data = new Array();
+	this.raw_data = new Array();
+	this.comments_after = "";
+	this.submitted_after = "";
+	this.subreddits = { min_count : 1, max_count: 1, r : {} };
+  }
   
   this.update = function() {
     // show the right kind of data
