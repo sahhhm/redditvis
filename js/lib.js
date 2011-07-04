@@ -15,7 +15,7 @@ function Redditor()
 
   this.get_color = function(d) {
     return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
-	  .range('red', 'yellow', 'green')(this.subreddits.r[d.data.subreddit].count);  
+      .range('red', 'yellow', 'green')(this.subreddits.r[d.data.subreddit].count);  
   }
 
   /* getters for ovreall data */
@@ -34,22 +34,22 @@ function Redditor()
 
   this.clear = function() {
     this.data = new Array();
-	this.raw_data = new Array();
-	this.comments_after = "";
-	this.submitted_after = "";
-	this.subreddits = { min_count : 1, max_count: 1, r : {} };
+    this.raw_data = new Array();
+    this.comments_after = "";
+    this.submitted_after = "";
+    this.subreddits = { min_count : 1, max_count: 1, r : {} };
   }
   
   this.update = function() {
     // show the right kind of data
     if (this.filters.comments && this.filters.submitted) {
-	  this.data = this.raw_data;
-	} else if (this.filters.comments && !this.filters.submitted) {
-	  this.data = this.raw_data.filter(function(d) { return d.kind == "t1"; });
-	} else if (!this.filters.comments && this.filters.submitted) {
-	  this.data = this.raw_data.filter(function(d) { return d.kind == "t3"; });
-	}
-	vis.render();
+      this.data = this.raw_data;
+    } else if (this.filters.comments && !this.filters.submitted) {
+      this.data = this.raw_data.filter(function(d) { return d.kind == "t1"; });
+    } else if (!this.filters.comments && this.filters.submitted) {
+      this.data = this.raw_data.filter(function(d) { return d.kind == "t3"; });
+    }
+    vis.render();
   }
 }
 

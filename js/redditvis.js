@@ -43,10 +43,10 @@ function redditvis(aRed) {
   .add(pv.Dot)
     .left(function(d) { return getX()((d.data.created_utc)); })
     .bottom(function(d) { return getY()(d.data.ups - d.data.downs); })
-	.shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
+    .shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
     .size(function(d) { return ((d.data.ups - d.data.downs)/aRed.get_max_score())* 100 })
-	.strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
-	.fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
+    .strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
+    .fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
     .event("mouseover", function(d) { return vis.active(d); })
     .event("mouseout", function(d) { return vis.active(false); });
 

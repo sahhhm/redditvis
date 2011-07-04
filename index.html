@@ -2,59 +2,59 @@
   <head>
     <title>RedditVis</title>
     <link type="text/css" rel="stylesheet" href="style/style.css"/>
-	<link type="text/css" rel="stylesheet" href="style/jquery-ui-1.8.14.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="style/jquery-ui-1.8.14.custom.css"/>
     <script type="text/javascript" src="js/protovis-r3.2.js"></script>
-	<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
-	<script type="text/javascript" src="js/redditvis.js"></script>
+    <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="js/redditvis.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript" src="js/lib.js"></script>
 
     <script>
-	    var vis;
+        var vis;
         var my_redditor = new Redditor;
-		$(function() {
-		  $("#buttongroup").hide();
+        $(function() {
+          $("#buttongroup").hide();
           $("#buttongroup").buttonset();
-		  $("#comment_button, #submitted_button").click(function() {	  
-		    my_redditor.filters.comments = $("#comment_button").is(":checked");
-			my_redditor.filters.submitted = $("#submitted_button").is(":checked");
-			my_redditor.update();
-		  });
-		  
+          $("#comment_button, #submitted_button").click(function() {	  
+            my_redditor.filters.comments = $("#comment_button").is(":checked");
+            my_redditor.filters.submitted = $("#submitted_button").is(":checked");
+            my_redditor.update();
+          });
+          
           $("#username_submit").click(function() {
-			  my_redditor.username = $("#username_input").val();
+              my_redditor.username = $("#username_input").val();
               get_data(my_redditor);	
               
-			  // show the filters
-		      $("#buttongroup").fadeIn(2000);			  
-		  });		  
-	    });
+              // show the filters
+              $("#buttongroup").fadeIn(2000);			  
+          });		  
+        });
     </script>
   </head>
   
   <body>
     <!-- User Selector -->
     <div id="user">
-	  <input id="username_input" type="text" class="user"/> 
-	  <button id="username_submit" class="user">submit</button>
-	</div>
+      <input id="username_input" type="text" class="user"/> 
+      <button id="username_submit" class="user">submit</button>
+    </div>
   
     <!-- Visualization -->
     <div id="fig">
-	  <script>
-    	redditvis(my_redditor);	
-	  </script>
-	</div>
-	
-	<!-- Interactions -->
-	<div id="interactions">
-	  <!-- Comments/Submissions buttonset -->
+      <script>
+        redditvis(my_redditor);	
+      </script>
+    </div>
+    
+    <!-- Interactions -->
+    <div id="interactions">
+      <!-- Comments/Submissions buttonset -->
       <div id="buttongroup">
-	    <input type="checkbox" id="comment_button" checked="yes"/><label for="comment_button">Comments</label>
-	    <input type="checkbox" id="submitted_button" checked="yes"/><label for="submitted_button">Submissions</label>
+        <input type="checkbox" id="comment_button" checked="yes"/><label for="comment_button">Comments</label>
+        <input type="checkbox" id="submitted_button" checked="yes"/><label for="submitted_button">Submissions</label>
       </div>	
-	</div>
+    </div>
   </body>
 
 </html>
