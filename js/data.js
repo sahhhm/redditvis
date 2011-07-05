@@ -106,19 +106,18 @@ function update_vis_data(aRed, raw_data) {
 	}
   });
   
-  // update the filters
-  aRed.filters.min_date = aRed.get_min_date();
-  aRed.filters.max_date = aRed.get_max_date();  
+  /* Update necessary filters */
   // update date slider values
+  aRed.filters.min_date = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
+  aRed.filters.max_date = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));  
   $("#date_slider").slider("option", "min", aRed.filters.min_date);
   $("#date_slider").slider("option", "max", aRed.filters.max_date);
-  $("#date_slider").slider("option", "values", [aRed.get_min_date(), aRed.get_max_date()]);
+  $("#date_slider").slider("option", "values", [aRed.filters.min_date, aRed.filters.max_date]);
   $("#date_amount").val(format_date(aRed.filters.min_date) + " - " + format_date(aRed.filters.max_date));
   
-
-  aRed.filters.min_score = aRed.get_min_score();
-  aRed.filters.max_score = aRed.get_max_score();  
   // update date slider values
+  aRed.filters.min_score = pv.min(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
+  aRed.filters.max_score = pv.max(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
   $("#score_slider").slider("option", "min", aRed.filters.min_score);
   $("#score_slider").slider("option", "max", aRed.filters.max_score);
   $("#score_slider").slider("option", "values", [aRed.filters.min_score, aRed.filters.max_score]);
