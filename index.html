@@ -24,7 +24,7 @@
             my_redditor.update();
           });
 
-          // slider actions
+          // date slider
           $("#date_slider").slider({
             range: true,
             values: [0,0],
@@ -35,7 +35,19 @@
                 my_redditor.update();
             }
           });
-            
+
+          // score slider
+          $("#score_slider").slider({
+            range: true,
+            values: [0,0],
+              slide: function( event, ui ) {
+                $("#score_amount").val(ui.values[0] + " - " + ui.values[1]);
+                my_redditor.filters.min_score = ui.values[0];
+                my_redditor.filters.max_score = ui.values[1];
+                my_redditor.update();
+            }
+          });
+          
           // Submit button for choosing new username
           $("#username_submit").click(function() {
               alert("here");
@@ -45,7 +57,7 @@
               // show the filters
               $("#interactions").fadeIn(5000);
           });
-          });
+        });
     </script>
   </head>
   
@@ -70,12 +82,20 @@
         <input type="checkbox" id="comment_button" checked="yes"/><label for="comment_button">Comments</label>
         <input type="checkbox" id="submitted_button" checked="yes"/><label for="submitted_button">Submissions</label>
       </div>
-      <p>
-        <label for="date_amount">Date range:</label>
-        <input type="text" id="date_amount" style="border:0; color:#f6931f; font-weight:bold;" />
-      </p>
-      <div id="date_slider"></div>
-      
+      <div id="date_range">
+        <p>
+          <label for="date_amount">Date range:</label>
+          <input type="text" id="date_amount" style="border:0; color:#f6931f; font-weight:bold;" />
+        </p>
+        <div id="date_slider"></div>
+      </div>
+      <div id="score_range">
+        <p>
+          <label for="score_amount">Score range:</label>
+          <input type="text" id="score_amount" style="border:0; color:#f6931f; font-weight:bold;" />
+        </p>
+        <div id="score_slider"></div>
+      </div>
     </div>
   </body>
 

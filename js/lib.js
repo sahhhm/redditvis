@@ -51,10 +51,18 @@ function Redditor()
     }
     
     // display the correct date range
-    var min = this.filters.min_date;
-    var max = this.filters.max_date;
-    this.data = this.data.filter(function(d) { return d.data.created >= min && d.data.created <= max; });
+    var mind = this.filters.min_date;
+    var maxd = this.filters.max_date;
+    this.data = this.data.filter(function(d) { return d.data.created >= mind && d.data.created <= maxd; });
 
+    // display the correct score range
+    var mins = this.filters.min_score;
+    var maxs = this.filters.max_score;
+    this.data = this.data.filter(function(d) { 
+      var score = d.data.ups - d.data.downs;
+      return score >= mins && score <= maxs;
+    });
+    
     vis.render();
   }
   

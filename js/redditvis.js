@@ -8,7 +8,7 @@ function redditvis(aRed) {
   }
 
   function getY() {
-    return pv.Scale.linear(aRed.get_min_score(), aRed.get_max_score()).range(0, h);
+    return pv.Scale.linear(aRed.filters.min_score, aRed.filters.max_score).range(0, h);
   }
 
   /* The root panel. */
