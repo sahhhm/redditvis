@@ -48,9 +48,35 @@
             }
           });
           
+          // selectable subreddits
+          $("#selectable_subreddits").bind("mousedown", function(e) {
+            e.metaKey = true; // force "ctrl" for the user
+          }).selectable({
+            stop: function() {
+                my_redditor.update();
+            }
+          }); 
+        
+          $("#subreddits_all").bind("click", function() { 
+            $('.ui-widget-content').each(function() {
+                if (!$(this).hasClass("ui-selected")) {
+                  $(this).addClass("ui-selected");   
+                }
+                my_redditor.update();
+            });
+          });
+          
+          $("#subreddits_none").bind("click", function() { 
+            $('.ui-widget-content').each(function() {
+                if ($(this).hasClass("ui-selected")) {
+                  $(this).removeClass("ui-selected");   
+                }
+                my_redditor.update();
+            });
+          });
+          
           // Submit button for choosing new username
-          $("#username_submit").click(function() {
-              alert("here");
+          $("#username_submit").click(function() {  
               my_redditor.username = $("#username_input").val();
               get_data(my_redditor);	
               
@@ -82,6 +108,8 @@
         <input type="checkbox" id="comment_button" checked="yes"/><label for="comment_button">Comments</label>
         <input type="checkbox" id="submitted_button" checked="yes"/><label for="submitted_button">Submissions</label>
       </div>
+      
+      <!-- Date Range -->    
       <div id="date_range">
         <p>
           <label for="date_amount">Date range:</label>
@@ -89,12 +117,24 @@
         </p>
         <div id="date_slider"></div>
       </div>
+      
+      <!-- Score Range -->
       <div id="score_range">
         <p>
           <label for="score_amount">Score range:</label>
           <input type="text" id="score_amount" style="border:0; color:#f6931f; font-weight:bold;" />
         </p>
         <div id="score_slider"></div>
+      </div>
+
+      <!-- Subreddit selectors -->
+      <div id="subreddits_opts">
+        <input type="text" id="subreddits_opts_text"/>
+        <a id="subreddits_all" class="subreddits_opts" href="#">all</a> | <a id="subreddits_none" class ="subreddits_opts" href="#">none</a>
+      </div>      
+      <div id="subreddits">
+        <ol id="selectable_subreddits">
+        </ol>      
       </div>
     </div>
   </body>

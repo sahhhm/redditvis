@@ -99,6 +99,9 @@ function update_vis_data(aRed, raw_data) {
       aRed.subreddits.r[sub].count += 1;
     } else {
       aRed.subreddits.r[sub] = {"count" : 1};
+      
+      // add subreddit to the set of selectables
+      $("#selectable_subreddits").append("<li class='ui-widget-content ui-selected'>" + sub +"</li>");
     }
     
     if (aRed.subreddits.r[sub].count > aRed.subreddits.max_count) {
@@ -106,7 +109,6 @@ function update_vis_data(aRed, raw_data) {
 	}
   });
   
-  /* Update necessary filters */
   // update date slider values
   aRed.filters.min_date = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
   aRed.filters.max_date = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));  
@@ -121,7 +123,8 @@ function update_vis_data(aRed, raw_data) {
   $("#score_slider").slider("option", "min", aRed.filters.min_score);
   $("#score_slider").slider("option", "max", aRed.filters.max_score);
   $("#score_slider").slider("option", "values", [aRed.filters.min_score, aRed.filters.max_score]);
-  $("#score_amount").val(aRed.filters.min_score + " - " + aRed.filters.max_score);  
+  $("#score_amount").val(aRed.filters.min_score + " - " + aRed.filters.max_score);
+  
 }
 
 function get_rand_color() {

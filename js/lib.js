@@ -26,6 +26,7 @@ function Redditor()
     this.subreddits = { min_count : 1, max_count: 1, r : {} };
   }
   
+  /** clean function up!! **/
   this.update = function() {
     // show the right kind of data (submitted/comments)
     if (this.filters.comments && this.filters.submitted) {
@@ -48,6 +49,15 @@ function Redditor()
       var score = d.data.ups - d.data.downs;
       return score >= mins && score <= maxs;
     });
+    
+    // display only data points from the selected subreddits (defaults to all)
+    var r = this;
+    var temp_data = new Array();
+    $('.ui-selected').each(function() {
+      var sub = $(this).text();
+      temp_data = temp_data.concat(r.data.filter(function(d) { return d.data.subreddit == sub; }));
+    });
+    this.data = temp_data;
     
     vis.render();
   }
