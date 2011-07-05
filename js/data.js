@@ -91,7 +91,7 @@ function update_vis_data(aRed, raw_data) {
   raw_data.data.children[0].kind == "t1" ? 
     aRed.comments_after = raw_data.data.after : 
     aRed.submitted_after = raw_data.data.after;
-  
+    
   // add or update the subreddit information correctly
   aRed.data.map(function(d) { 
     var sub = d.data.subreddit;
@@ -105,6 +105,15 @@ function update_vis_data(aRed, raw_data) {
       aRed.subreddits.max_count = aRed.subreddits.r[sub].count;
 	}
   });
+  
+  // update the filters
+  aRed.filters.min_date = aRed.get_min_date();
+  aRed.filters.max_date = aRed.get_max_date();  
+  // update date slider values
+  $("#date_slider").slider("option", "min", aRed.filters.min_date);
+  $("#date_slider").slider("option", "max", aRed.filters.max_date);
+  $("#date_slider").slider("option", "values", [aRed.get_min_date(), aRed.get_max_date()]);
+  $("#date_amount").val(format_date(aRed.filters.min_date) + " - " + format_date(aRed.filters.max_date));
 }
 
 function get_rand_color() {

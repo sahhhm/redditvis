@@ -11,7 +11,7 @@ function Redditor()
   this.comments_after = "";
   this.submitted_after = "";
   this.subreddits = { min_count : 1, max_count: 1, r : {} }; // subreddits['nyc'] = {num: xxx, color: #xxx}
-  this.filters = { comments: true, submitted: true };
+  this.filters = { comments: true, submitted: true, min_date: 0, max_date: 0 };
 
   this.get_color = function(d) {
     return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
@@ -41,7 +41,7 @@ function Redditor()
   }
   
   this.update = function() {
-    // show the right kind of data
+    // show the right kind of data (submitted/comments)
     if (this.filters.comments && this.filters.submitted) {
       this.data = this.raw_data;
     } else if (this.filters.comments && !this.filters.submitted) {
@@ -49,8 +49,15 @@ function Redditor()
     } else if (!this.filters.comments && this.filters.submitted) {
       this.data = this.raw_data.filter(function(d) { return d.kind == "t3"; });
     }
+    
+    // display the correct date range
+    var min = this.filters.min_date;
+    var max = this.filters.max_date;
+    this.data = this.data.filter(function(d) { return d.data.created >= min && d.data.created <= max; });
+
     vis.render();
   }
+  
 }
 
 /**

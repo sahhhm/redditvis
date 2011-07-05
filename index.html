@@ -14,22 +14,38 @@
         var vis;
         var my_redditor = new Redditor;
         $(function() {
-          $("#buttongroup").hide();
+          $("#interactions").hide();
+          
+          // Comments/Submitted buttons
           $("#buttongroup").buttonset();
           $("#comment_button, #submitted_button").click(function() {	  
             my_redditor.filters.comments = $("#comment_button").is(":checked");
             my_redditor.filters.submitted = $("#submitted_button").is(":checked");
             my_redditor.update();
           });
-          
+
+          // slider actions
+          $("#date_slider").slider({
+            range: true,
+            values: [0,0],
+              slide: function( event, ui ) {
+                $("#date_amount").val(format_date(ui.values[0]) + " - " + format_date(ui.values[1]));
+                my_redditor.filters.min_date = ui.values[0];
+                my_redditor.filters.max_date = ui.values[1];
+                my_redditor.update();
+            }
+          });
+            
+          // Submit button for choosing new username
           $("#username_submit").click(function() {
+              alert("here");
               my_redditor.username = $("#username_input").val();
               get_data(my_redditor);	
               
               // show the filters
-              $("#buttongroup").fadeIn(2000);			  
-          });		  
-        });
+              $("#interactions").fadeIn(5000);
+          });
+          });
     </script>
   </head>
   
@@ -53,7 +69,13 @@
       <div id="buttongroup">
         <input type="checkbox" id="comment_button" checked="yes"/><label for="comment_button">Comments</label>
         <input type="checkbox" id="submitted_button" checked="yes"/><label for="submitted_button">Submissions</label>
-      </div>	
+      </div>
+      <p>
+        <label for="date_amount">Date range:</label>
+        <input type="text" id="date_amount" style="border:0; color:#f6931f; font-weight:bold;" />
+      </p>
+      <div id="date_slider"></div>
+      
     </div>
   </body>
 
