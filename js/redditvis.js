@@ -21,24 +21,28 @@ function redditvis(aRed) {
   .top(5)
   .def("active", false); // vis.active -> currently hovered data element
 
+  var rvis = vis.add(pv.Panel)
+    .top(0)
+    .height(h);  
+  
   /* Y-axis and ticks. */
-  vis.add(pv.Rule)
-  .data(function() { return getY().ticks(); })
-  .bottom(function(d) { return getY()(d); })
-  .strokeStyle(function(d) {return d ? "#eee" : "#000"; })
+  rvis.add(pv.Rule)
+    .data(function() { return getY().ticks(); })
+    .bottom(function(d) { return getY()(d); })
+    .strokeStyle(function(d) {return d ? "#eee" : "#000"; })
   .anchor("left").add(pv.Label)
-  .text(function(d) { return d; });
+    .text(function(d) { return d; });
 
   /* X-axis and ticks. */
-  vis.add(pv.Rule)
-   .data(function() { return getX().ticks(); })
-   .left(function(d) { return getX()(d); })
-   .strokeStyle(function(d) { return d ? "#eee" : "#000"; })
-  .anchor("bottom").add(pv.Label)
-   .text(function(d) { return format_date(d); });
+  rvis.add(pv.Rule)
+    .data(function() { return getX().ticks(); })
+    .left(function(d) { return getX()(d); })
+    .strokeStyle(function(d) { return d ? "#eee" : "#000"; })
+   .anchor("bottom").add(pv.Label)
+    .text(function(d) { return format_date(d); });
 
   /* The plot */
-  vis.add(pv.Panel)
+  rvis.add(pv.Panel)
     .data(function() { return aRed.data; })
   .add(pv.Dot)
     .left(function(d) { return getX()((d.data.created_utc)); })
