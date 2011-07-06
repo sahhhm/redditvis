@@ -58,7 +58,7 @@
           }); 
         
           $("#subreddits_all").bind("click", function() { 
-            $('.ui-widget-content').each(function() {
+            $('.selectable').each(function() {
                 if (!$(this).hasClass("ui-selected")) {
                   $(this).addClass("ui-selected");   
                 }
@@ -67,12 +67,20 @@
           });
           
           $("#subreddits_none").bind("click", function() { 
-            $('.ui-widget-content').each(function() {
+            $('.selectable').each(function() {
                 if ($(this).hasClass("ui-selected")) {
                   $(this).removeClass("ui-selected");   
                 }
                 my_redditor.update();
             });
+          });
+          
+          // filter the subreddits as the user types
+          $("#subreddits_opts_text").bind("keyup", function() {
+            var text = $(this).val().toLowerCase();
+            $('.selectable').each(function() {
+                $(this).text().toLowerCase().match(text) ? $(this).show("medium") : $(this).hide("medium");
+            });            
           });
           
           // Submit button for choosing new username

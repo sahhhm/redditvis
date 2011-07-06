@@ -4,13 +4,13 @@
  */
 function Redditor()
 {
-  this.debug = false;
+  this.debug = true;
   this.username = "";
   this.raw_data = new Array();
   this.data = new Array();
   this.comments_after = "";
   this.submitted_after = "";
-  this.subreddits = { min_count : 1, max_count: 1, r : {} }; // subreddits['nyc'] = {num: xxx, color: #xxx}
+  this.subreddits = { min_count : 1, max_count: 1, r : {} }; 
   this.filters = { comments: true, submitted: true, min_date: 0, max_date: 0, min_score: 0, max_score: 0 };
 
   this.get_color = function(d) {

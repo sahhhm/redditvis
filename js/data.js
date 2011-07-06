@@ -101,12 +101,12 @@ function update_vis_data(aRed, raw_data) {
       aRed.subreddits.r[sub] = {"count" : 1};
       
       // add subreddit to the set of selectables
-      $("#selectable_subreddits").append("<li class='ui-widget-content ui-selected'>" + sub +"</li>");
+      $("#selectable_subreddits").append("<li class='ui-widget-content ui-selected selectable'>" + sub +"</li>");
     }
     
     if (aRed.subreddits.r[sub].count > aRed.subreddits.max_count) {
       aRed.subreddits.max_count = aRed.subreddits.r[sub].count;
-	}
+    }
   });
   
   // update date slider values
