@@ -129,20 +129,14 @@ function update_vis_data(aRed, raw_data) {
   aRed.filters.max_date = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));  
   aRed.filters.min_date_global = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
   aRed.filters.max_date_global = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));
-  $("#date_slider").slider("option", "min", aRed.filters.min_date);
-  $("#date_slider").slider("option", "max", aRed.filters.max_date);
-  $("#date_slider").slider("option", "values", [aRed.filters.min_date, aRed.filters.max_date]);
-  $("#date_amount").val(format_date(aRed.filters.min_date) + " - " + format_date(aRed.filters.max_date));
+
   
   // update date slider values
   aRed.filters.min_score = pv.min(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
   aRed.filters.max_score = pv.max(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
   aRed.filters.min_score_global = pv.min(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
   aRed.filters.max_score_global = pv.max(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
-  $("#score_slider").slider("option", "min", aRed.filters.min_score);
-  $("#score_slider").slider("option", "max", aRed.filters.max_score);
-  $("#score_slider").slider("option", "values", [aRed.filters.min_score, aRed.filters.max_score]);
-  $("#score_amount").val(aRed.filters.min_score + " - " + aRed.filters.max_score);
+
   
 }
 
