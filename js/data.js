@@ -139,7 +139,3 @@ function update_vis_data(aRed, raw_data) {
 
   
 }
-
-function get_rand_color() {
-  return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-}
