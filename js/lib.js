@@ -4,14 +4,19 @@
  */
 function Redditor()
 {
-  this.debug = true;
+  this.debug = false;
   this.username = "";
   this.raw_data = new Array();
   this.data = new Array();
   this.comments_after = "";
   this.submitted_after = "";
+  this.data_context = new Array();
   this.subreddits = { min_count : 1, max_count: 1, r : {} }; 
-  this.filters = { comments: true, submitted: true, min_date: 0, max_date: 0, min_score: 0, max_score: 0 };
+  this.filters = { comments: true, submitted: true, 
+                   min_date: 0, max_date: 0, 
+                   min_date_global: 0, max_date_global: 0,
+                   min_score: 0, max_score: 0,
+                   min_score_global: 0, max_score_global: 0};
 
   this.get_color = function(d) {
     return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
@@ -41,6 +46,11 @@ function Redditor()
     var mind = this.filters.min_date;
     var maxd = this.filters.max_date;
     this.data = this.data.filter(function(d) { return d.data.created >= mind && d.data.created <= maxd; });
+
+    // scale the score
+    this.filters.min_score = pv.min(this.data.map(function(d) { return d.data.ups - d.data.downs; }));
+    this.filters.max_score = pv.max(this.data.map(function(d) { return d.data.ups - d.data.downs; }));
+
 
     // display the correct score range
     var mins = this.filters.min_score;

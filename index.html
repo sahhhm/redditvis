@@ -90,6 +90,7 @@
               
               // show the filters
               $("#interactions").fadeIn(5000);
+              $("#toremove").remove();
           });
         });
     </script>
@@ -117,6 +118,7 @@
         <input type="checkbox" id="submitted_button" checked="yes"/><label for="submitted_button">Submissions</label>
       </div>
       
+      <div id="toremove">      
       <!-- Date Range -->    
       <div id="date_range">
         <p>
@@ -134,7 +136,7 @@
         </p>
         <div id="score_slider"></div>
       </div>
-
+      </div>
       <!-- Subreddit selectors -->
       <div id="subreddits_opts">
         <input type="text" id="subreddits_opts_text"/>

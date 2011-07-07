@@ -91,7 +91,22 @@ function update_vis_data(aRed, raw_data) {
   raw_data.data.children[0].kind == "t1" ? 
     aRed.comments_after = raw_data.data.after : 
     aRed.submitted_after = raw_data.data.after;
-    
+
+  // populate the data for the context view
+  /** needs fixing, but will suffice for now **/  
+  $.each(aRed.raw_data, function(i, d) {
+    var found = false;
+    for (var j = 0; j < aRed.data_context.length; j++){
+      if (aRed.data_context[j].date == d.data.created) {
+        aRed.data_context[j].count += 1;
+        found = true;
+      }
+    }
+    if (!found) {
+      aRed.data_context.push({date: d.data.created, count: 1});
+    }
+  });
+      
   // add or update the subreddit information correctly
   aRed.data.map(function(d) { 
     var sub = d.data.subreddit;
@@ -112,6 +127,8 @@ function update_vis_data(aRed, raw_data) {
   // update date slider values
   aRed.filters.min_date = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
   aRed.filters.max_date = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));  
+  aRed.filters.min_date_global = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
+  aRed.filters.max_date_global = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));
   $("#date_slider").slider("option", "min", aRed.filters.min_date);
   $("#date_slider").slider("option", "max", aRed.filters.max_date);
   $("#date_slider").slider("option", "values", [aRed.filters.min_date, aRed.filters.max_date]);
@@ -120,6 +137,8 @@ function update_vis_data(aRed, raw_data) {
   // update date slider values
   aRed.filters.min_score = pv.min(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
   aRed.filters.max_score = pv.max(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
+  aRed.filters.min_score_global = pv.min(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
+  aRed.filters.max_score_global = pv.max(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));
   $("#score_slider").slider("option", "min", aRed.filters.min_score);
   $("#score_slider").slider("option", "max", aRed.filters.max_score);
   $("#score_slider").slider("option", "values", [aRed.filters.min_score, aRed.filters.max_score]);
