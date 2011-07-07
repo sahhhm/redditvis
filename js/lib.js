@@ -50,7 +50,10 @@ function Redditor()
     // scale the score
     this.filters.min_score = pv.min(this.data.map(function(d) { return d.data.ups - d.data.downs; }));
     this.filters.max_score = pv.max(this.data.map(function(d) { return d.data.ups - d.data.downs; }));
-
+    if (this.filters.min_score == this.filters.max_score) {
+      this.filters.min_score -= this.filters.min_score/2;
+      this.filters.max_score += this.filters.max_score/2;
+    }
 
     // display the correct score range
     var mins = this.filters.min_score;
