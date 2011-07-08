@@ -129,7 +129,6 @@ function update_vis_data(aRed, raw_data) {
   aRed.filters.max_date = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));  
   aRed.filters.min_date_global = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
   aRed.filters.max_date_global = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));
-
   
   // update date slider values
   aRed.filters.min_score = pv.min(aRed.raw_data.map(function(d) { return d.data.ups - d.data.downs; }));

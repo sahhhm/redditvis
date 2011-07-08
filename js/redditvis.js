@@ -19,7 +19,7 @@ function redditvis(aRed) {
   }
 
   function getYContext() {
-    return pv.Scale.linear(aRed.filters.min_score, aRed.filters.max_score).range(0, h2);
+    return pv.Scale.linear(aRed.filters.min_score_global, aRed.filters.max_score_global).range(0, h2);
   }  
   
   /* The root panel. */
@@ -83,7 +83,7 @@ function redditvis(aRed) {
   context.add(pv.Rule)
     .bottom(0);
   
- 
+/* 
   context.add(pv.Bar)
     .data(function () { return aRed.data_context; })
     .left(function(d) { return getXContext()(d.date); })
@@ -92,6 +92,17 @@ function redditvis(aRed) {
     .bottom(0)
     .title(function(d) { return d.count; })
     .fillStyle("steelblue");
+*/
+  context.add(pv.Dot)
+    .data(function() { return aRed.raw_data; })
+    .left(function(d) { return getXContext()((d.data.created_utc)); })
+    .bottom(function(d) { return getYContext()(d.data.ups - d.data.downs); })
+    .shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
+    .size(function(d) { return ((d.data.ups - d.data.downs)/aRed.filters.max_score_global)* 10 });
+    //.strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
+    //.fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
+    //.event("mouseover", function(d) { return vis.active(d); })
+    //.event("mouseout", function(d) { return vis.active(false); });
 
   context.add(pv.Panel)
     .data([i])
