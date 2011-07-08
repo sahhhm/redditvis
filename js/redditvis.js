@@ -4,7 +4,7 @@ function redditvis(aRed) {
   h1 = 400,
   h2 = 30;
 
-  var i = {x:100, dx:200};
+  var i = {x:0, dx:800};
   
   function getX() {
     return pv.Scale.linear(aRed.filters.min_date, aRed.filters.max_date).range(0, w);
