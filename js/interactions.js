@@ -6,29 +6,21 @@ $(function() {
 /** comments/submitted bottons **/        
 $(function() {
   $("#buttongroup").buttonset();
-  $("#comment_button").click(function() {
-    if (!$("#submitted_button").is(":checked")) {
+
+  $("#submitted_button, #comment_button").click(function() {	  
+    var this_id = "#" + this.id;
+    var other_id = this_id == "#submitted_button" ? "#comment_button" : "#submitted_button";
+      
+    if (!$(other_id).is(":checked")) {
       alert("at least one must be selected");
-      $("#comment_button").prop("checked", true);
-      $("#comment_button").button("refresh");
+      $(this_id).prop("checked", true);
+      $(this_id).button("refresh");
     } else {    
       my_redditor.filters.comments = $("#comment_button").is(":checked");
       my_redditor.filters.submitted = $("#submitted_button").is(":checked");
       my_redditor.update();
-    }
-  });
-  
-  $("#submitted_button").click(function() {	  
-    if (!$("#comment_button").is(":checked")) {
-      alert("at least one must be selected");
-      $("#submitted_button").prop("checked", true);
-      $("#submitted_button").button("refresh");
-    } else {    
-      my_redditor.filters.comments = $("#comment_button").is(":checked");
-      my_redditor.filters.submitted = $("#submitted_button").is(":checked");
-      my_redditor.update();
-    }
-  });  
+    }       
+  });    
 });
   
 /** selectable subreddits **/
