@@ -5,16 +5,19 @@ $(function() {
 
 /** comments/submitted bottons **/        
 $(function() {
-  $("#buttongroup").buttonset();
+  $("#buttongroup").tipsy({gravity: 's', fade: true, trigger: 'manual',
+                     fallback: "You must view at least one type of data"})
+                   .buttonset();
 
   $("#submitted_button, #comment_button").click(function() {	  
     var this_id = "#" + this.id;
     var other_id = this_id == "#submitted_button" ? "#comment_button" : "#submitted_button";
       
     if (!$(other_id).is(":checked")) {
-      alert("at least one must be selected");
       $(this_id).prop("checked", true);
-      $(this_id).button("refresh");
+      $(this_id).button("refresh");    
+      $("#buttongroup").tipsy("show");
+      setTimeout("$('#buttongroup').tipsy('hide')", 1000);
     } else {    
       my_redditor.filters.comments = $("#comment_button").is(":checked");
       my_redditor.filters.submitted = $("#submitted_button").is(":checked");
