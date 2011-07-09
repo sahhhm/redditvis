@@ -4,7 +4,7 @@
  */
 function Redditor()
 {
-  this.debug = false;
+  this.debug = true;
   this.username = "";
   this.raw_data = new Array();
   this.data = new Array();
