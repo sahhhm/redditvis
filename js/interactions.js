@@ -6,11 +6,29 @@ $(function() {
 /** comments/submitted bottons **/        
 $(function() {
   $("#buttongroup").buttonset();
-  $("#comment_button, #submitted_button").click(function() {	  
-    my_redditor.filters.comments = $("#comment_button").is(":checked");
-    my_redditor.filters.submitted = $("#submitted_button").is(":checked");
-    my_redditor.update();
+  $("#comment_button").click(function() {
+    if (!$("#submitted_button").is(":checked")) {
+      alert("at least one must be selected");
+      $("#comment_button").prop("checked", true);
+      $("#comment_button").button("refresh");
+    } else {    
+      my_redditor.filters.comments = $("#comment_button").is(":checked");
+      my_redditor.filters.submitted = $("#submitted_button").is(":checked");
+      my_redditor.update();
+    }
   });
+  
+  $("#submitted_button").click(function() {	  
+    if (!$("#comment_button").is(":checked")) {
+      alert("at least one must be selected");
+      $("#submitted_button").prop("checked", true);
+      $("#submitted_button").button("refresh");
+    } else {    
+      my_redditor.filters.comments = $("#comment_button").is(":checked");
+      my_redditor.filters.submitted = $("#submitted_button").is(":checked");
+      my_redditor.update();
+    }
+  });  
 });
   
 /** selectable subreddits **/
