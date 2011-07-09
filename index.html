@@ -62,6 +62,7 @@
           // Submit button for choosing new username
           $("#username_submit").click(function() {  
               my_redditor.username = $("#username_input").val();
+              $("#selectable_subreddits").empty();
               get_data(my_redditor);	
               
               // show the filters
