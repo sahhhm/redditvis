@@ -4,7 +4,9 @@ function redditvis(aRed) {
   h1 = 400,
   h2 = 30;
 
-  var i = {x:0, dx:800};
+  var bw = 5;
+  var j = {x:0, dx: bw};
+  var k = {x:795, dx: bw};
   
   function getX() {
     return pv.Scale.linear(aRed.filters.min_date, aRed.filters.max_date).range(0, w);
@@ -99,28 +101,32 @@ function redditvis(aRed) {
     .bottom(function(d) { return getYContext()(d.data.ups - d.data.downs); })
     .shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
     .size(function(d) { return ((d.data.ups - d.data.downs)/aRed.filters.max_score_global)* 10 });
-    //.strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
-    //.fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
-    //.event("mouseover", function(d) { return vis.active(d); })
-    //.event("mouseout", function(d) { return vis.active(false); });
 
   context.add(pv.Panel)
-    .data([i])
-    .cursor("crosshair")
-    .events("all")
-    .event("mousedown", pv.Behavior.select())
-    .event("select", focus)
   .add(pv.Bar)
+    .left(function() { return j.x; })
+    .width(function() { return k.x - j.x + k.dx; })
+    .fillStyle("rgba(255, 128, 128, .4)")
+  .add(pv.Bar) // left controller
+    .data([j])
     .left(function(d) { return d.x; })
     .width(function(d) { return d.dx; })
-    .fillStyle("rgba(255, 128, 128, .4)")
+    .fillStyle("rgba(255, 128, 128, .6)")
     .cursor("move")
     .event("mousedown", pv.Behavior.drag())
-    .event("drag", focus);
-    
+    .event("drag", focus)    
+  .add(pv.Bar)
+    .data([k]) // right controller
+    .left(function(d) { return d.x; })
+    .width(function(d) { return d.dx; })
+    .fillStyle("rgba(255, 128, 128, .6)")
+    .cursor("move")
+    .event("mousedown", pv.Behavior.drag())
+    .event("drag", focus)  
+ 
   function focus() {
-    var x = getXContext().invert(i.x);
-    var dx = getXContext().invert(i.x +i.dx);
+    var x = getXContext().invert(j.x);
+    var dx = getXContext().invert(k.x + k.dx);
     aRed.filters.min_date = Math.min(x, dx);
     aRed.filters.max_date = Math.max(x, dx);
     aRed.update();
