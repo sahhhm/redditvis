@@ -10,7 +10,6 @@ function Redditor()
   this.data = new Array();
   this.comments_after = "";
   this.submitted_after = "";
-  this.data_context = new Array();
   this.subreddits = { min_count : 1, max_count: 1, r : {} }; 
   this.filters = { comments: true, submitted: true, 
                    min_date: 0, max_date: 0, 

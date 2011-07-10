@@ -85,16 +85,6 @@ function redditvis(aRed) {
   context.add(pv.Rule)
     .bottom(0);
   
-/* 
-  context.add(pv.Bar)
-    .data(function () { return aRed.data_context; })
-    .left(function(d) { return getXContext()(d.date); })
-    .height(function(d) { return d.count * 10; })
-    .width(1)
-    .bottom(0)
-    .title(function(d) { return d.count; })
-    .fillStyle("steelblue");
-*/
   context.add(pv.Dot)
     .data(function() { return aRed.raw_data; })
     .left(function(d) { return getXContext()((d.data.created_utc)); })

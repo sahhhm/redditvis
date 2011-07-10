@@ -91,21 +91,6 @@ function update_vis_data(aRed, raw_data) {
   raw_data.data.children[0].kind == "t1" ? 
     aRed.comments_after = raw_data.data.after : 
     aRed.submitted_after = raw_data.data.after;
-
-  // populate the data for the context view
-  /** needs fixing, but will suffice for now **/  
-  $.each(aRed.raw_data, function(i, d) {
-    var found = false;
-    for (var j = 0; j < aRed.data_context.length; j++){
-      if (aRed.data_context[j].date == d.data.created) {
-        aRed.data_context[j].count += 1;
-        found = true;
-      }
-    }
-    if (!found) {
-      aRed.data_context.push({date: d.data.created, count: 1});
-    }
-  });
       
   // add or update the subreddit information correctly
   aRed.data.map(function(d) { 
