@@ -4,24 +4,27 @@ function redditvis(aRed) {
   h1 = 400,
   h2 = 30;
 
+  
+  var date_padding = 86400*5;
+  var score_padding = 1;
   var bw = 5;
   var j = {x:0, dx: bw};
-  var k = {x:795, dx: bw};
+  var k = {x:w-bw, dx: bw};
   
   function getX() {
-    return pv.Scale.linear(aRed.filters.min_date, aRed.filters.max_date).range(0, w);
+    return pv.Scale.linear(aRed.filters.min_date - date_padding, aRed.filters.max_date + date_padding).range(0, w);
   }  
   
   function getXContext() {
-    return pv.Scale.linear(aRed.filters.min_date_global, aRed.filters.max_date_global).range(0, w);  
+    return pv.Scale.linear(aRed.filters.min_date_global - date_padding, aRed.filters.max_date_global + date_padding).range(0, w);  
   }
 
   function getY() {
-    return pv.Scale.linear(aRed.filters.min_score, aRed.filters.max_score).range(0, h1);
+    return pv.Scale.linear(aRed.filters.min_score - score_padding, aRed.filters.max_score + score_padding).range(0, h1);
   }
 
   function getYContext() {
-    return pv.Scale.linear(aRed.filters.min_score_global, aRed.filters.max_score_global).range(0, h2);
+    return pv.Scale.linear(aRed.filters.min_score_global - score_padding, aRed.filters.max_score_global + score_padding).range(0, h2);
   }  
   
   /* The root panel. */
