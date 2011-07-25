@@ -106,7 +106,7 @@ function redditvis(aRed) {
     .left(function(d) { return d.x; })
     .width(function(d) { return d.dx; })
     .fillStyle("rgba(255, 128, 128, .6)")
-    .cursor("move")
+    .cursor("w-resize")
     .event("mousedown", pv.Behavior.drag())
     .event("drag", focus)    
   .add(pv.Bar)
@@ -114,7 +114,7 @@ function redditvis(aRed) {
     .left(function(d) { return d.x; })
     .width(function(d) { return d.dx; })
     .fillStyle("rgba(255, 128, 128, .6)")
-    .cursor("move")
+    .cursor("e-resize")
     .event("mousedown", pv.Behavior.drag())
     .event("drag", focus)  
  
