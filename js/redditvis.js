@@ -108,7 +108,7 @@ function redditvis(aRed) {
     .fillStyle("rgba(255, 128, 128, .6)")
     .cursor("w-resize")
     .event("mousedown", pv.Behavior.drag())
-    .event("drag", focus)    
+    .event("dragend", focus)   
   .add(pv.Bar)
     .data([k]) // right controller
     .left(function(d) { return d.x; })
@@ -116,14 +116,21 @@ function redditvis(aRed) {
     .fillStyle("rgba(255, 128, 128, .6)")
     .cursor("e-resize")
     .event("mousedown", pv.Behavior.drag())
-    .event("drag", focus)  
+    .event("dragend", focus)
  
   function focus() {
     var x = getXContext().invert(j.x);
     var dx = getXContext().invert(k.x + k.dx);
-    aRed.filters.min_date = Math.min(x, dx);
-    aRed.filters.max_date = Math.max(x, dx);
-    aRed.update();
+	if (x > dx) {
+      // swap left and right controllers if user swaps them on drag
+      var t = j.x;
+      j.x = k.x;
+      k.x = t;
+	}
+	aRed.filters.min_date = Math.min(x, dx);
+	aRed.filters.max_date = Math.max(x, dx);
+	aRed.update();
   }
+
   //vis.render(); 
 }
