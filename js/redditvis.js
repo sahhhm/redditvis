@@ -35,7 +35,9 @@ function redditvis(aRed) {
   .left(20)
   .right(10)
   .top(5)
-  .def("active", false); // vis.active -> currently hovered data element
+  .def("active", false) // vis.active -> currently hovered data element
+  .def("lactive", false)
+  .def("ractive", false);
 
   
   var rvis = vis.add(pv.Panel)
@@ -100,24 +102,31 @@ function redditvis(aRed) {
   .add(pv.Bar)
     .left(function() { return j.x; })
     .width(function() { return k.x - j.x + k.dx; })
-    .fillStyle("rgba(255, 128, 128, .4)")
+    .fillStyle("rgba(255, 128, 128, .2)")
   .add(pv.Bar) // left controller
     .data([j])
     .left(function(d) { return d.x; })
     .width(function(d) { return d.dx; })
-    .fillStyle("rgba(255, 128, 128, .6)")
+    //.fillStyle("rgba(255, 128, 128, .6)")
+	.fillStyle(function(d) { return vis.lactive() ? "rgba(255, 128, 128, .6)" : "rgba(255, 128, 128, .4)"; })
+	.event("mouseover", function() {return vis.lactive(true);})
+	.event("mouseout",  function() {return vis.lactive(false);})
     .cursor("w-resize")
     .event("mousedown", pv.Behavior.drag())
+	.event("drag", function() {return vis.lactive(true);})
     .event("dragend", focus)   
   .add(pv.Bar)
     .data([k]) // right controller
     .left(function(d) { return d.x; })
     .width(function(d) { return d.dx; })
-    .fillStyle("rgba(255, 128, 128, .6)")
+	.fillStyle(function(d) { return vis.ractive() ? "rgba(255, 128, 128, .6)" : "rgba(255, 128, 128, .4)"; })
+	.event("mouseover", function() {return vis.ractive(true);})
+	.event("mouseout",  function() {return vis.ractive(false);})
     .cursor("e-resize")
     .event("mousedown", pv.Behavior.drag())
+	.event("drag", function() {return vis.ractive(true);})
     .event("dragend", focus)
- 
+  
   function focus() {
     var x = getXContext().invert(j.x);
     var dx = getXContext().invert(k.x + k.dx);
@@ -132,5 +141,4 @@ function redditvis(aRed) {
 	aRed.update();
   }
 
-  //vis.render(); 
 }

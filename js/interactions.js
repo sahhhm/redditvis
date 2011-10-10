@@ -1,6 +1,14 @@
 /** Initial steps **/
 $(function() { 
   $("#interactions").hide(); 
+  
+  // force controllers to be inactive on mouseup 
+  // (fixes issue where user moves cursor off 
+  //  of context bar while dragging)
+  $("body").mouseup(function() { 
+    if (vis.lactive()) vis.lactive(false);
+    if (vis.ractive()) vis.ractive(false);	
+  })
 });
 
 /** comments/submitted bottons **/        
