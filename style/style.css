@@ -33,4 +33,14 @@ a.subreddits_opts { text-decoration: none; color: #f6931f; font-weight: bold; }
 #selectable_subreddits li { margin: 3px; padding: 3px; font-size: 11px; height: 14px; font-family: "Trebuchet MS", "Tahoma", "Verdana", "Arial", "sans-serif";}
 p.bolded { font-weight: bold; }
 
+#subreddits::-webkit-scrollbar {
+    width: 6px;
+}
+
+#subreddits::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+	background: rgba(243,152,20,0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(243,152,20,.9);
+}
+
 
