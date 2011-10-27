@@ -63,17 +63,29 @@ function redditvis(aRed) {
   /* The plot */
   rvis.add(pv.Panel)
     .data(function() { return aRed.data; })
-  .add(pv.Dot)
-    .left(function(d) { return getX()((d.data.created_utc)); })
-    .bottom(function(d) { return getY()(d.data.ups - d.data.downs); })
-    .shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
-    .size(function(d) { return ((Math.abs(d.data.ups - d.data.downs)+1)/aRed.filters.max_score)* 100 })
-    .strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
-    .text(function(d) { return format_date(d.data.created_utc); })
-    .fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
-    .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: false}, vis))	
-    .event("mouseout", function(d) { return vis.active(false); });
+    .add(pv.Dot)
+      .left(function(d) { return getX()((d.data.created_utc)); })
+      .bottom(function(d) { return getY()(d.data.ups - d.data.downs); })
+      .shape(function(d) { return d.kind == "t1" ? "circle" : "triangle"; })
+      .size(function(d) { return ((Math.abs(d.data.ups - d.data.downs)+1)/aRed.filters.max_score)* 100 })
+      .strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
+      .text(function(d) { return format_date(d.data.created_utc); })
+      .fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
+      .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: false}, vis))	
+      .event("mouseout", function(d) { return vis.active(false); });
 
+  /* Rule that displays when user is hovering over a mark (active) */	   
+  rvis.add(pv.Panel)
+    .data(function(d) {return aRed.data; })
+    .add(pv.Rule)
+      .left(function(d) {return getX()(aRed.filters.min_date); })	  
+      .bottom(function(d) { return getY()(d.data.ups - d.data.downs); })
+      .width(w)
+      .lineWidth(1)
+	  .visible(function(d) {return vis.active() && vis.active().data.id == d.data.id;})
+	  .strokeStyle(function(d) { return aRed.get_color(d).alpha(.2);});
+
+	
   /* Context panel (zoomed out). */
   var context = vis.add(pv.Panel)
     .bottom(0)
