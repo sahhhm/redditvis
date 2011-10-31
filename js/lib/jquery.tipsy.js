@@ -1,5 +1,6 @@
 // tipsy, facebook style tooltips for jquery
 // version 1.0.0a
+// modified hastily  to allow bgcolor support - 10/30/11, sahhhm
 // (c) 2008-2010 jason frame [jason@onehackoranother.com]
 // released under the MIT license
 
@@ -23,6 +24,7 @@
                 var $tip = this.tip();
                 
                 $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
+				$tip.find('.tipsy-inner').css({"background-color" : this.options.bgcolor}); // add inner bgcolor
                 $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
                 $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).prependTo(document.body);
                 
@@ -65,6 +67,12 @@
                     $tip.addClass(maybeCall(this.options.className, this.$element[0]));
                 }
                 
+				// change bgcolor of arrow to match the bgcolor of the tip
+				$tip.find('.tipsy-arrow-w').css({"border-right-color" : this.options.bgcolor});
+				$tip.find('.tipsy-arrow-n').css({"border-bottom-color" : this.options.bgcolor});
+				$tip.find('.tipsy-arrow-s').css({"border-top-color" : this.options.bgcolor});
+				$tip.find('.tipsy-arrow-e').css({"border-left-color" : this.options.bgcolor});
+
                 if (this.options.fade) {
                     $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
                 } else {
