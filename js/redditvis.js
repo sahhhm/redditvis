@@ -79,12 +79,15 @@ function redditvis(aRed) {
   rvis.add(pv.Panel)
     .data(function(d) {return aRed.data; })
     .add(pv.Rule)
-      .left(function(d) {return getX()(aRed.filters.min_date); })	  
+      .left(function(d) {return getX()(aRed.filters.global_min_date); })	  
       .bottom(function(d) { return getY()(d.data.ups - d.data.downs); })
       .width(w)
       .lineWidth(1)
 	  .visible(function(d) {return vis.active() && vis.active().data.id == d.data.id;})
-	  .strokeStyle(function(d) { return aRed.get_color(d).alpha(.2);});
+	  .strokeStyle(function(d) { return aRed.get_color(d).alpha(.2);})
+	.anchor("left").add(pv.Label)
+      .text(function(d) { return d.data.ups - d.data.downs })
+	  .textStyle(function(d) { return aRed.get_color(d);});
 
 	
   /* Context panel (zoomed out). */
