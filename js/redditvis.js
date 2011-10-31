@@ -39,6 +39,7 @@ function redditvis(aRed) {
   .def("lactive", false)
   .def("ractive", false);
 
+
   
   var rvis = vis.add(pv.Panel)
     .top(0)
@@ -70,8 +71,8 @@ function redditvis(aRed) {
       .size(function(d) { return ((Math.abs(d.data.ups - d.data.downs)+1)/aRed.filters.max_score)* 100 })
       .strokeStyle(function(d) { return aRed.get_color(d).alpha(.8); })
       .text(function(d) { return format_date(d.data.created_utc); })
-      .fillStyle(function(d) { return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
-      .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: false}, vis))	
+      .fillStyle(function(d) {  return vis.active() && vis.active().data.subreddit == d.data.subreddit ? aRed.get_color(d).alpha(.8) : aRed.get_color(d).alpha(.2); })
+      .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: false}, vis, aRed))	
       .event("mouseout", function(d) { return vis.active(false); });
 
   /* Rule that displays when user is hovering over a mark (active) */	   

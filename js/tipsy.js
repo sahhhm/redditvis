@@ -2,7 +2,7 @@
  ** Modified From: 
  **  https://github.com/mbostock/protovis/blob/master/examples/tipsy/tipsy.js
  **/
-pv.Behavior.tipsy = function(opts, v) {
+pv.Behavior.tipsy = function(opts, v, aRed) {
   var tip;
 
   /**
@@ -19,10 +19,15 @@ pv.Behavior.tipsy = function(opts, v) {
   }
 
   return function(d) {
-      /* ROUGH HACK...need to fix */
+      // rough fix to set tipsy color and
+	  // set the active mark in the visualization
       v.active(d);
 	  v.render();
-  
+	  
+	  // set the background color
+	  opts.bgcolor = aRed.get_color(d).color;
+		
+		
       /* Compute the transform to offset the tooltip position. */
       var t = pv.Transform.identity, p = this.parent;
       do {
@@ -60,7 +65,7 @@ pv.Behavior.tipsy = function(opts, v) {
       }
       tip.style.left = Math.floor(this.left() * t.k + t.x) + "px";
       tip.style.top = Math.floor(this.top() * t.k + t.y) + "px";
-
+	  
       /*
        * Cleanup the tooltip span on mouseout. Immediately trigger the tooltip;
        * this is necessary for dimensionless marks. Note that the tip has
@@ -71,4 +76,7 @@ pv.Behavior.tipsy = function(opts, v) {
       if (tip.style.height) $(pv.event.target).mouseleave(trigger);
       $(tip).tipsy("show");
     };
+		
 };
+
+
