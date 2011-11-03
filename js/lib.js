@@ -21,6 +21,11 @@ function Redditor()
     return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
       .range('red', 'yellow', 'green')(this.subreddits.r[d.data.subreddit].count);  
   }
+  
+  this.get_color_for_name = function(name) {
+    return pv.Scale.linear(0, this.subreddits.max_count/2, this.subreddits.max_count)
+      .range('red', 'yellow', 'green')(this.subreddits.r[name].count);    
+  }
 
   this.clear = function() {
     this.data = new Array();
@@ -71,6 +76,8 @@ function Redditor()
     });
     this.data = temp_data;
     
+	update_colors(this);
+	
     vis.render();
   }
   

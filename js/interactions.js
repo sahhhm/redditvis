@@ -39,26 +39,30 @@ $(function() {
   $("#selectable_subreddits").bind("mousedown", function(e) {
     e.metaKey = true; // force "ctrl" for the user
   }).selectable({
-    stop: function() {
-        my_redditor.update();
+    stop: function(event, ui) {
+      $('.selectable').each(function() {
+	    var name = $(this).attr("name"); 
+        // add custom `notselected` class if needed
+		$(this).hasClass("ui-selected") ? $('.selectable.' + name).removeClass("notselected") :
+		                                  $('.selectable.' + name).addClass("notselected");   
+	  });	
+      my_redditor.update();		
     }
   }); 
 
   
   $("#subreddits_all").bind("click", function() { 
     $('.selectable').each(function() {
-        if (!$(this).hasClass("ui-selected")) {
-          $(this).addClass("ui-selected");   
-        }
+        if (!$(this).hasClass("ui-selected")) $(this).addClass("ui-selected"); 		  
+        if ($(this).hasClass("notselected")) $(this).removeClass("notselected");
         my_redditor.update();
     });
   });
   
   $("#subreddits_none").bind("click", function() { 
     $('.selectable').each(function() {
-        if ($(this).hasClass("ui-selected")) {
-          $(this).removeClass("ui-selected");   
-        }
+        if ($(this).hasClass("ui-selected")) $(this).removeClass("ui-selected");   
+        if (!$(this).hasClass("notselected")) $(this).addClass("notselected");
         my_redditor.update();
     });
   });
@@ -83,3 +87,10 @@ $(function() {
       $("#interactions").fadeIn(5000);
   });
 });
+
+update_colors = function(redd) {
+    $('.selectable').each(function() {
+	  var name = $(this).attr("name"); 
+      $('.selectable.ui-selected.' + name).css("background",redd.get_color_for_name(name).color);
+	});
+}

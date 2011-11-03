@@ -34,10 +34,11 @@ a.subreddits_opts { text-decoration: none; color: #f6931f; font-weight: bold; }
    overflow-y: scroll;
 }
 
-#selectable_subreddits .ui-selecting { background: #FECA40; }
-#selectable_subreddits .ui-selected { background: #F39814; color: white; }
+#selectable_subreddits .ui-selecting { color: white; opacity: 0.8; }
+#selectable_subreddits .ui-selected { color: white; opacity: 0.8; }
+#selectable_subreddits .notselected { color: white; opacity: 0.2; }
 #selectable_subreddits { list-style-type: none; margin: 0; padding: 10px; width: 90%;  }
-#selectable_subreddits li { margin: 3px; padding: 3px; font-size: 11px; height: 14px; font-family: "Trebuchet MS", "Tahoma", "Verdana", "Arial", "sans-serif";}
+#selectable_subreddits li { color: white; opacity: 0.8; margin: 3px; padding: 3px; font-size: 11px; height: 14px; font-family: "Trebuchet MS", "Tahoma", "Verdana", "Arial", "sans-serif";}
 p.bolded { font-weight: bold; }
 
 #subreddits::-webkit-scrollbar {
