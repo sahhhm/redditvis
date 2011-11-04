@@ -109,6 +109,8 @@ function update_vis_data(aRed, raw_data) {
     }
   });
   
+  update_colors(aRed);
+  
   // update date slider values
   aRed.filters.min_date = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));
   aRed.filters.max_date = pv.max(aRed.raw_data.map(function(d) { return d.data.created; }));  
