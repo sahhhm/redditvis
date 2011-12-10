@@ -100,9 +100,11 @@ update_interactions = function(redd) {
 	
 	//handle hovering over/out selectable subreddit name
     $("li[t|='sel-subreddit']").bind("mouseover", function() {
-      var sub = $(this)[0].textContent;
+	  vis.selsub($(this)[0].textContent);
+	  vis.render();
     });  
-    $("li[t|='sel-subreddit']").bind("mouseout", function() {
-      var sub = $(this)[0].textContent;
+    $("li[t|='sel-subreddit']").bind("mouseout", function() {;
+	  vis.selsub("");
+	  vis.render();
     });  	
 }
