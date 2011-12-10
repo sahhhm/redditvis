@@ -76,7 +76,7 @@ function Redditor()
     });
     this.data = temp_data;
     
-	update_colors(this);
+	update_interactions(this);
 	
     vis.render();
   }

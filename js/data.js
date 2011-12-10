@@ -101,7 +101,7 @@ function update_vis_data(aRed, raw_data) {
       aRed.subreddits.r[sub] = {"count" : 1};
       
       // add subreddit to the set of selectables
-      $("#selectable_subreddits").append("<li class='ui-widget-content ui-selected selectable " + sub + "' name='" + sub + "'>" + sub +"</li>");
+      $("#selectable_subreddits").append("<li t='sel-subreddit' class='ui-widget-content ui-selected selectable " + sub + "' name='" + sub + "'>" + sub +"</li>");
     }
     
     if (aRed.subreddits.r[sub].count > aRed.subreddits.max_count) {
@@ -109,7 +109,7 @@ function update_vis_data(aRed, raw_data) {
     }
   });
   
-  update_colors(aRed);
+  update_interactions(aRed);
   
   // update date slider values
   aRed.filters.min_date = pv.min(aRed.raw_data.map(function(d) { return d.data.created; }));

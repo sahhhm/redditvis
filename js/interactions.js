@@ -74,6 +74,8 @@ $(function() {
         $(this).text().toLowerCase().match(text) ? $(this).show("medium") : $(this).hide("medium");
     });            
   });
+  
+
 });
   
 /** Submit button for choosing new username **/
@@ -88,9 +90,19 @@ $(function() {
   });
 });
 
-update_colors = function(redd) {
+/** hodgepodge of stuff that may need to be updated more than once **/
+update_interactions = function(redd) {
+    //update colors for subreddit based on most recent data
     $('.selectable').each(function() {
 	  var name = $(this).attr("name"); 
       $('.selectable.ui-selected.' + name).css("background",redd.get_color_for_name(name).color);
 	});
+	
+	//handle hovering over/out selectable subreddit name
+    $("li[t|='sel-subreddit']").bind("mouseover", function() {
+      var sub = $(this)[0].textContent;
+    });  
+    $("li[t|='sel-subreddit']").bind("mouseout", function() {
+      var sub = $(this)[0].textContent;
+    });  	
 }
